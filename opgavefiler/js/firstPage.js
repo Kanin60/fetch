@@ -19,7 +19,7 @@ fetch(userURI).then(
 );
 
 function buildUserCard(data){
-    data.map((userCard)=>{
+    data.mapw((userCard)=>{
         myUserlistElement.innerHTML +=` <h2>Navn: ${userCard.name}</h2> 
                                         <p>Adresse: ${userCard.address.street}, ${userCard.address.suite}. 
                                         <br> PostNummer: ${userCard.address.zipcode} 
@@ -35,8 +35,25 @@ function buildUserCard(data){
 const myDataFileUrl = "../../opgavefiler/data/story.json";
 const myStoryElement = document.getElementById("theStory");
 
+fetch(myDataFileUrl).then(
+    (response) => {
+        return response.json();
+    }
+).then(
+    (data) => {
+        storyData = data;
+        storySetUp(storyData);
+    }
+).catch(
+    (error) =>{
+        // console.error("****   HER ER FEJLEN    ****", error)
+    }
+);
 
+function storySetUp(storyData){
 
+}
+//
 /* Opgave 3*/
 // din kode her
 
