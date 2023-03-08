@@ -13,6 +13,7 @@ du må erne style din message :)
   color: aliceblue;
   background-color: orangered;
   border: 2px solid rgb(247, 115, 8);
+  cursor: pointer;
 }
 
 #theStory h2 {

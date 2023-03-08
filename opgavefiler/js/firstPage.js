@@ -19,7 +19,7 @@ fetch(userURI).then(
 );
 
 function buildUserCard(data){
-    data.mapw((userCard)=>{
+    data.map((userCard)=>{
         myUserlistElement.innerHTML +=` <h2>Navn: ${userCard.name}</h2> 
                                         <p>Adresse: ${userCard.address.street}, ${userCard.address.suite}. 
                                         <br> PostNummer: ${userCard.address.zipcode} 
@@ -31,7 +31,6 @@ function buildUserCard(data){
 
 // din kode her
 
-/* Opgave 3 - skriv videre på koden her: */
 const myDataFileUrl = "../../opgavefiler/data/story.json";
 const myStoryElement = document.getElementById("theStory");
 
@@ -42,17 +41,87 @@ fetch(myDataFileUrl).then(
 ).then(
     (data) => {
         storyData = data;
-        storySetUp(storyData);
+        storySetUp("DK");
     }
 ).catch(
     (error) =>{
-        // console.error("****   HER ER FEJLEN    ****", error)
+        console.log("****   HER ER FEJLEN    ****", error);
     }
 );
 
-function storySetUp(storyData){
+function storySetUp(sprog){
+    let myStory = null;
+console.log(sprog);
+    switch(sprog){
+        case "DK":
+            myStory = storyData.DK;
+        break;
 
+        case "SE":
+            myStory = storyData.SE;
+        break;
+
+        case "FI":
+            myStory = storyData.FI;
+        break;
+
+        case "UK":
+            myStory = storyData.UK
+        break;
+
+        default:
+            myStory = storyData.DK;
+        break;
+        
+    }
+    storyBuild(myStory);
 }
+
+function storyBuild(myStory){
+    myStoryElement.innerHTML = '';
+    buildButtons();
+    
+
+    myStoryElement.innerHTML +=     `<h2>${myStory.headline}</h2> 
+                                     <img src="../../opgavefiler/img/felix.jpg" alt="Felix" /> 
+                                     <p>${myStory.text}</p>`
+    // console.log( myStoryElement.innerHTML);
+}
+
+function buildButtons(){
+    
+    let DKbutton = document.createElement("button");
+    DKbutton.innerHTML = "DANSK";
+    DKbutton.addEventListener("click", () => {
+        storySetUp("DK");
+    });
+
+    // console.log(DKbutton);
+
+    let SEbutton = document.createElement("button");
+    SEbutton.innerHTML = "SVENSKA";
+    SEbutton.addEventListener("click", () => {
+        storySetUp("SE");
+    });
+
+    let FIbutton = document.createElement("button");
+    FIbutton.innerHTML = "FINSKA";
+    FIbutton.addEventListener("click", () => {
+        storySetUp("FI");
+    });
+
+    let UKbutton = document.createElement("button");
+    UKbutton.innerHTML = "ENGLISH";
+    UKbutton.addEventListener("click", () => {
+        storySetUp("UK");
+    });
+
+    myStoryElement.appendChild(DKbutton);
+    myStoryElement.appendChild(SEbutton);
+    myStoryElement.appendChild(FIbutton);
+    myStoryElement.appendChild(UKbutton);
+}
+
 //
 /* Opgave 3*/
 // din kode her
