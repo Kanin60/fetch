@@ -33,101 +33,98 @@ function buildUserCard(data){
 
 const myDataFileUrl = "../../opgavefiler/data/story.json";
 const myStoryElement = document.getElementById("theStory");
+let myStorydata = null;
 
-fetch(myDataFileUrl).then(
-    (response) => {
+
+fetch(myDataFileUrl)
+    .then((response) => {
         return response.json();
-    }
-).then(
-    (data) => {
-        storyData = data;
-        storySetUp("DK");
-    }
-).catch(
-    (error) =>{
+    })
+    .then((data) => {
+        myStorydata = data;
+        setUpStory("DK");
+    })
+    .catch((error) => {
         console.log("****   HER ER FEJLEN    ****", error);
-    }
-);
+    });
 
-function storySetUp(sprog){
+function setUpStory(myLanguage) {
     let myStory = null;
-console.log(sprog);
-    switch(sprog){
+
+    switch(myLanguage){
         case "DK":
-            myStory = storyData.DK;
+            myStory = myStorydata.DK;
         break;
 
         case "SE":
-            myStory = storyData.SE;
+            myStory = myStorydata.SE;
         break;
 
         case "FI":
-            myStory = storyData.FI;
+            myStory = myStorydata.FI;
         break;
 
         case "UK":
-            myStory = storyData.UK
+            myStory = myStorydata.UK
         break;
 
         default:
-            myStory = storyData.DK;
+            myStory = myStorydata.DK;
         break;
-        
     }
-    storyBuild(myStory);
+    createStory(myStory);
 }
 
-function storyBuild(myStory){
+function createStory(myStory) {
     myStoryElement.innerHTML = '';
-    buildButtons();
-    
-
+    //functionen createButtons() skal kaldet i bunden af functionen fordi jeg bruger string literals...
     myStoryElement.innerHTML +=     `<h2>${myStory.headline}</h2> 
-                                     <img src="../../opgavefiler/img/felix.jpg" alt="Felix" /> 
+                                     <img src="../../opgavefiler/img/felix.jpg" alt="Felix"> 
                                      <p>${myStory.text}</p>`
-    // console.log( myStoryElement.innerHTML);
+    console.log( myStoryElement);
+    createButtons();
 }
 
-function buildButtons(){
-    
-    let DKbutton = document.createElement("button");
-    DKbutton.innerHTML = "DANSK";
-    DKbutton.addEventListener("click", () => {
-        storySetUp("DK");
+function createButtons() {
+    let buttonContainer = document.createElement("div");
+
+    let myDkbutton = document.createElement("button");
+    myDkbutton.innerText = "DANSK";
+    myDkbutton.addEventListener("click", (e) => {
+        setUpStory("DK");
     });
 
-    // console.log(DKbutton);
-
-    let SEbutton = document.createElement("button");
-    SEbutton.innerHTML = "SVENSKA";
-    SEbutton.addEventListener("click", () => {
-        storySetUp("SE");
+    let mySebutton = document.createElement("button");
+    mySebutton.innerText = "SVENSKA";
+    mySebutton.addEventListener("click", (e) => {
+        setUpStory("SE");
     });
 
-    let FIbutton = document.createElement("button");
-    FIbutton.innerHTML = "FINSKA";
-    FIbutton.addEventListener("click", () => {
-        storySetUp("FI");
+    let myFibutton = document.createElement("button");
+    myFibutton.innerText = "FINSKA";
+    myFibutton.addEventListener("click", (e) => {
+        setUpStory("FI");
     });
 
-    let UKbutton = document.createElement("button");
-    UKbutton.innerHTML = "ENGLISH";
-    UKbutton.addEventListener("click", () => {
-        storySetUp("UK");
+    let myUkbutton = document.createElement("button");
+    myUkbutton.innerText = "ENGLISH";
+    myUkbutton.addEventListener("click", (e) => {
+        setUpStory("UK");
     });
 
-    myStoryElement.appendChild(DKbutton);
-    myStoryElement.appendChild(SEbutton);
-    myStoryElement.appendChild(FIbutton);
-    myStoryElement.appendChild(UKbutton);
-}
+    buttonContainer.appendChild(myDkbutton);
+    buttonContainer.appendChild(mySebutton);
+    buttonContainer.appendChild(myFibutton);
+    buttonContainer.appendChild(myUkbutton);
+    myStoryElement.appendChild(buttonContainer);
+};
 
 //
 /* Opgave 3*/
 // din kode her
 
-const myListElement = document.getElementById("userSelect");
-const myPostElement = document.getElementById("userPosts");
+// const myListElement = document.getElementById("userSelect");
+// const myPostElement = document.getElementById("userPosts");
 
 //entry point
 // getUsers("https://jsonplaceholder.typicode.com/users");
